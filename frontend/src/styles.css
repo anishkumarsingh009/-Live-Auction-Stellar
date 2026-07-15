@@ -1,0 +1,164 @@
+:root {
+  --bg: #0c0a14;
+  --card: #171420;
+  --border: #2b2438;
+  --text: #f2eef8;
+  --muted: #948da3;
+  --accent: #b48cff;
+  --accent-dim: #382b5c;
+  --success: #3ecf8e;
+  --error: #ff6b6b;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1d1829, var(--bg));
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.app-header h1 { margin: 0 0 4px; font-size: 28px; }
+.subtitle { margin: 0; color: var(--muted); font-size: 14px; max-width: 40ch; }
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.primary { background: var(--accent); color: #1a1224; }
+.btn.primary:hover { opacity: 0.9; }
+
+.wallet-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+.wallet-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.error-banner {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid var(--error);
+  color: var(--error);
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.tx-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+.tx-pending { background: rgba(180, 140, 255, 0.1); border-color: var(--accent); }
+.tx-success { background: rgba(62, 207, 142, 0.1); border-color: var(--success); color: var(--success); }
+.tx-error { background: rgba(255, 107, 107, 0.1); border-color: var(--error); color: var(--error); }
+.tx-link { margin-left: auto; color: inherit; font-size: 12px; }
+
+.tx-spinner { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.tx-spinner[data-active="true"] { animation: pulse 1s infinite ease-in-out; }
+@keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+.auction-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+.empty-state { text-align: center; color: var(--muted); padding: 60px 20px; }
+
+.auction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.auction-header h2 { margin: 0; font-size: 20px; }
+
+.badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.badge-live { background: rgba(180, 140, 255, 0.15); color: var(--accent); }
+.badge-ended { background: rgba(255, 107, 107, 0.15); color: var(--error); }
+
+.bid-display {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 20px;
+  padding: 18px;
+  background: #1c1728;
+  border-radius: 12px;
+}
+.bid-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.bid-amount { font-size: 28px; font-weight: 700; }
+.bid-leader { font-size: 13px; color: var(--accent); }
+
+.starting-price { color: var(--muted); font-size: 13px; margin: 14px 0 0; }
+
+.bid-form { display: flex; gap: 10px; margin-top: 20px; }
+.bid-form input {
+  flex: 1;
+  background: #1c1728;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-size: 14px;
+}
+.bid-form input:focus { outline: 1px solid var(--accent); }
+
+.poll-footer { color: var(--muted); font-size: 13px; margin-top: 20px; margin-bottom: 0; }
+
+.end-auction-btn { display: block; margin: 16px auto 0; text-align: center; }
+
+.app-footer { margin-top: 32px; text-align: center; }
+.app-footer a { color: var(--muted); font-size: 13px; text-decoration: none; }
+.app-footer a:hover { color: var(--accent); }
