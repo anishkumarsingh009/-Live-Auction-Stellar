@@ -82,8 +82,8 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <div>
-          <h1>🔨 Live Auction</h1>
+        <div className="app-header-content">
+          <h1>Live Auction</h1>
           <p className="subtitle">
             On-chain English auction powered by a Soroban smart contract on Stellar Testnet.
           </p>
