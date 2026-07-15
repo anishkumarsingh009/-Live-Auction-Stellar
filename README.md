@@ -1,129 +1,79 @@
-# 🔨 Live Auction — Stellar White Belt Level 2
+<div align="center">
+  
+# 🔨 Live Auction — On-Chain Stellar Bidding
 
-An on-chain, single-item English auction built on **Soroban** (Stellar smart
-contracts), with a multi-wallet React frontend where the current high bid
-updates **live** as bids come in — no refresh required.
+**An on-chain, single-item English auction built on Stellar & Soroban smart contracts.**  
+*Live Auction allows users to place bids and see real-time updates directly on the blockchain, with a multi-wallet integrated React frontend.*
 
-> Built for White Belt Level 2: multi-wallet integration, contract
-> deployment, and real-time event handling.
+[![Stellar](https://img.shields.io/badge/Stellar-Soroban-blue.svg)](https://stellar.org/soroban)
+[![Vite](https://img.shields.io/badge/Frontend-Vite_React-black.svg)](https://vitejs.dev/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black.svg?logo=vercel)](https://live-auction-stellar.vercel.app/)
 
-## ✨ Features → Requirements mapping
+### 🔗 [▶️ Live App](https://live-auction-stellar.vercel.app/)
 
-| Requirement | Where it lives |
-|---|---|
-| Multi-wallet integration | `frontend/src/lib/wallet.ts` — [StellarWalletsKit](https://github.com/Creit-Tech/Stellar-Wallets-Kit) with `allowAllModules()` (Freighter, xBull, Albedo, Lobstr, Hana, Rabet, WalletConnect, Ledger) |
-| 3+ error types handled | `wallet.ts` → `WalletNotFoundError`, `UserRejectedError`, `InsufficientBalanceError`, `NetworkError`, `ContractCallError` (5 total) |
-| Contract deployed on testnet | `contract/src/lib.rs` — see [Deployed contract](#deployed-contract) below |
-| Contract called from frontend | `frontend/src/lib/contract.ts` — `placeBid()` and `endAuction()` build, simulate, sign, and submit real invocations |
-| Reading + writing contract data | `get_state` (read) and `place_bid` / `end_auction` (writes) |
-| Transaction status visible | `frontend/src/components/TxStatus.tsx` — building → pending → success/error, with a Stellar Expert link |
-| Event listening / real-time sync | `frontend/src/lib/events.ts` — polls Soroban RPC `getEvents` for the contract's `bid` topic every 4s, plus an 8s state-poll safety net |
-| 2+ meaningful commits | See commit history — contract, frontend, and docs were committed separately |
+</div>
 
-## 🏗️ Architecture
+<br />
 
-```
-contract/            Soroban smart contract (Rust)
-  src/lib.rs           Auction logic: initialize, place_bid, end_auction, get_state
-  src/test.rs          Unit tests (full flow, low-bid rejection, expiry, admin-only end)
+## 🌟 Key Features
 
-frontend/            Vite + React + TypeScript
-  src/lib/wallet.ts    StellarWalletsKit wrapper + typed errors
-  src/lib/contract.ts  Build/sign/submit transactions, poll tx status
-  src/lib/events.ts    Real-time bid event subscription
-  src/components/      WalletConnect, AuctionCard, TxStatusBanner
-```
+1. **On-Chain Bidding:** Securely place bids using smart contracts on the Stellar Testnet, guaranteeing transparency and immediate settlement.
+2. **Real-time Synchronization:** View the highest bid and leaderboard updates instantly via Soroban RPC `getEvents`, no refresh required.
+3. **Multi-Wallet Integration:** Seamlessly connect using Freighter, xBull, Albedo, Lobstr, Hana, Rabet, WalletConnect, or Ledger through StellarWalletsKit.
+4. **Robust Error Handling:** Comprehensive wallet and contract error tracking ensuring smooth user experiences.
 
-### How a bid flows through the system
+---
 
-1. User connects a wallet via the **StellarWalletsKit** modal (any supported
-   wallet — this is the multi-wallet piece).
-2. Frontend builds a `place_bid(bidder, amount)` invocation, simulates it via
-   Soroban RPC, and asks the connected wallet to sign it.
-3. Signed transaction is submitted; the UI shows **pending**, then polls
-   `getTransaction` until it's **success** or **failed**.
-4. The contract rejects bids that don't strictly beat the current highest
-   (or the starting price, on the first bid) and rejects bids placed after
-   the auction's end ledger.
-5. On a successful bid, the contract emits a `bid` event. Every connected
-   client is polling `getEvents` for that topic, so the leaderboard updates
-   **live** for everyone watching — not just the bidder.
+## 🚀 Smart Contract Deployment (Stellar Testnet)
 
-## 🧯 Error handling
+The smart contract is live and deployed to the **Stellar Testnet**. All contract interactions use the native **XLM** token.
 
-| Error | Trigger | User sees |
+| Contract | Contract ID | Explorer |
 |---|---|---|
-| `WalletNotFoundError` | Selected wallet extension isn't installed | "X is not installed or could not be reached." |
-| `UserRejectedError` | User declines the signing prompt | "You rejected the request in your wallet." |
-| `InsufficientBalanceError` | Account lacks XLM for fee/reserve | "This account doesn't have enough XLM..." |
-| `NetworkError` | RPC/Horizon unreachable or times out | "Could not reach the Stellar network..." |
-| `ContractCallError` | Contract-level rejection (bid too low, auction ended, unauthorized `end_auction` call) | Raw contract error surfaced in the banner |
+| 🔨 **Live Auction** | `CDO5OXZUWFZKKQ7L3SL4JWY6X4ZDI5HXWBBHRVYNXNVK7IXU7PNLKWNN` | [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDO5OXZUWFZKKQ7L3SL4JWY6X4ZDI5HXWBBHRVYNXNVK7IXU7PNLKWNN) |
 
-All errors render in a banner at the top of the app instead of failing
-silently. The "End auction now" button is a deliberate way to trigger and
-see the `Unauthorized`-style contract error live: any connected wallet can
-click it, but only the admin address that called `initialize` will succeed —
-everyone else gets a clear on-chain rejection.
+**Sample Transaction:** [View Contract Interaction Hash](https://stellar.expert/explorer/testnet/tx/4555d12310342198fac6385004ae27c756ac3a6ca276a7170e25a4b571adc0bf)
 
-## 🚀 Setup
-
-### Prerequisites
-- Node.js 18+
-- Rust + `wasm32-unknown-unknown` target + `stellar-cli` (only needed if you
-  want to redeploy the contract yourself — see [DEPLOY.md](./DEPLOY.md))
-- A testnet-funded wallet (e.g. [Freighter](https://www.freighter.app/), get
-  funds from https://friendbot.stellar.org)
-
-### Run the frontend
-
-```bash
-cd frontend
-cp .env.example .env      # paste in the CONTRACT_ID below
-npm install
-npm run dev
-```
-
-### Deploy your own contract (optional — a live one is already deployed)
-
-Full step-by-step in [DEPLOY.md](./DEPLOY.md).
-
-## 📌 Deployed contract
-
-- **Network:** Stellar Testnet
-- **Contract ID:** `PASTE_YOUR_DEPLOYED_CONTRACT_ID_HERE`
-- **Explorer:** https://stellar.expert/explorer/testnet/contract/PASTE_YOUR_DEPLOYED_CONTRACT_ID_HERE
-
-## 🔗 Example transaction (contract call)
-
-- **Tx hash:** `PASTE_YOUR_TX_HASH_HERE`
-- **Explorer:** https://stellar.expert/explorer/testnet/tx/PASTE_YOUR_TX_HASH_HERE
+---
 
 ## 📸 Screenshots
 
-> Add these once you've run the app locally.
+**Live Bid Updating in Real Time:**
+<p align="center">
+  <img src="docs/live-auction.png" width="80%" />
+</p>
 
-**Wallet options available (StellarWalletsKit modal):**
+**Wallet Options Available (StellarWalletsKit):**
+<p align="center">
+  <img src="docs/wallet-options.png" width="80%" />
+</p>
 
-`![wallet options](./docs/wallet-options.png)`
+---
 
-**Live bid updating in real time:**
+## 🛠️ Tech Stack
 
-`![live auction](./docs/live-auction.png)`
+- **Smart Contracts:** Rust, Soroban SDK
+- **Frontend:** Vite, React, TypeScript
+- **Wallet Integration:** Freighter / Stellar Wallets Kit
 
-## 🌐 Live demo
+## 📖 Local Development
 
-`https://your-deployment.vercel.app` (optional)
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/anishkumarsingh009/-Live-Auction-Stellar.git
+   cd -Live-Auction-Stellar
+   ```
 
-## 🧪 Testing the contract
+2. **Run Contract Tests:**
+   ```bash
+   cd contract
+   cargo test
+   ```
 
-```bash
-cd contract
-cargo test
-```
-
-Covers: full bid flow, low-bid rejection, bidding after expiry, admin-only
-early close.
-
-## 📄 License
-
-MIT
+3. **Start the Frontend:**
+   ```bash
+   cd frontend
+   cp .env.example .env
+   npm install
+   npm run dev
+   ```
