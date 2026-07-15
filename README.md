@@ -24,6 +24,20 @@
 5. **Smart Contract Validations:** Securely handles minimum bid increments, auction time limits, and admin-only authorizations natively on-chain.
 
 ---
+## 🚀 Smart Contract Deployment (Stellar Testnet)
+The core logic for the live auction runs entirely on-chain. Below are the key deployed details:
+
+| Contract | Contract ID | Explorer |
+|---|---|---|
+| 🔨 **Live Auction** | `CBVAFG4BB6QJ3IQ2UPWV43TLR24BED73BG5JZBSMGDNN3B66QFWQVNJ7` | [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBVAFG4BB6QJ3IQ2UPWV43TLR24BED73BG5JZBSMGDNN3B66QFWQVNJ7) |
+
+---
+## 🔗 On-Chain Transaction Verified on Stellar Expert
+*Every bid is a real Soroban smart contract invocation. Users can inspect the full transaction detail — source account, fee, ledger number, and the exact `place_bid()` call — on Stellar Expert.*
+
+**Sample Transaction:** [View Contract Interaction Hash](https://stellar.expert/explorer/testnet/tx/f24d322a00e5b412e617d7966f37d2690d17ee48ce6846c31fcc85d78ea7a230)
+
+---
 
 ## 📸 Application Showcase
 
@@ -34,28 +48,16 @@
 
 ---
 
-### 2. 🔗 On-Chain Transaction Verified on Stellar Expert
-*Every bid is a real Soroban smart contract invocation. Users can inspect the full transaction detail — source account, fee, ledger number, and the exact `place_bid()` call — on Stellar Expert.*
 
-**Sample Transaction:** [View Contract Interaction Hash](https://stellar.expert/explorer/testnet/tx/f24d322a00e5b412e617d7966f37d2690d17ee48ce6846c31fcc85d78ea7a230)
 
----
-
-### 3. 👛 Wallet Connection Options
+### 2. 👛 Wallet Connection Options
 *Live Auction integrates multiple Stellar wallets via StellarWalletsKit. Users can easily connect their preferred wallet to cast their bids securely.*
 
 ![Wallet Options](images/wallet%20options.png)
 
 ---
 
-## 🚀 Smart Contract Deployment (Stellar Testnet)
-The core logic for the live auction runs entirely on-chain. Below are the key deployed details:
 
-| Contract | Contract ID | Explorer |
-|---|---|---|
-| 🔨 **Live Auction** | `CBVAFG4BB6QJ3IQ2UPWV43TLR24BED73BG5JZBSMGDNN3B66QFWQVNJ7` | [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBVAFG4BB6QJ3IQ2UPWV43TLR24BED73BG5JZBSMGDNN3B66QFWQVNJ7) |
-
----
 
 ## 🛠 Tech Stack
 - **Frontend:** React + Vite, TypeScript, Vanilla CSS (Premium Glassmorphism UI)
