@@ -48,6 +48,15 @@
 
 ---
 
+## 🚀 Smart Contract Deployment (Stellar Testnet)
+The core logic for the live auction runs entirely on-chain. Below are the key deployed details:
+
+| Contract | Contract ID | Explorer |
+|---|---|---|
+| 🔨 **Live Auction** | `CBVAFG4BB6QJ3IQ2UPWV43TLR24BED73BG5JZBSMGDNN3B66QFWQVNJ7` | [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBVAFG4BB6QJ3IQ2UPWV43TLR24BED73BG5JZBSMGDNN3B66QFWQVNJ7) |
+
+---
+
 ## 🛠 Tech Stack
 - **Frontend:** React + Vite, TypeScript, Vanilla CSS (Premium Glassmorphism UI)
 - **Blockchain:** Stellar Network (Testnet)
