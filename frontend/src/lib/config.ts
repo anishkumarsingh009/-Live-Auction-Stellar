@@ -17,4 +17,4 @@ export const CONTRACT_ID =
 // Bid amounts are entered by the user in whole "credits" and converted to
 // the contract's i128 unit 1:1 here for simplicity (no token transfers are
 // involved — this is a bidding/leaderboard demo, not an escrow).
-export const AMOUNT_LABEL = "credits";
+export const AMOUNT_LABEL = "XLM";

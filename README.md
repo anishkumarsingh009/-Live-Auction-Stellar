@@ -30,9 +30,9 @@ The smart contract is live and deployed to the **Stellar Testnet**. All contract
 
 | Contract | Contract ID | Explorer |
 |---|---|---|
-| 🔨 **Live Auction** | `CDO5OXZUWFZKKQ7L3SL4JWY6X4ZDI5HXWBBHRVYNXNVK7IXU7PNLKWNN` | [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDO5OXZUWFZKKQ7L3SL4JWY6X4ZDI5HXWBBHRVYNXNVK7IXU7PNLKWNN) |
+| 🔨 **Live Auction** | `CBVAFG4BB6QJ3IQ2UPWV43TLR24BED73BG5JZBSMGDNN3B66QFWQVNJ7` | [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBVAFG4BB6QJ3IQ2UPWV43TLR24BED73BG5JZBSMGDNN3B66QFWQVNJ7) |
 
-**Sample Transaction:** [View Contract Interaction Hash](https://stellar.expert/explorer/testnet/tx/4555d12310342198fac6385004ae27c756ac3a6ca276a7170e25a4b571adc0bf)
+**Sample Transaction:** [View Contract Interaction Hash](https://stellar.expert/explorer/testnet/tx/efd6f429a574a4186d4b7fff7e24dba1e7b12ecfe512efaa21fd73d8012cd841)
 
 ---
 
